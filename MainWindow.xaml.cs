@@ -19,5 +19,17 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        try
+        {
+            FullContext context = new  FullContext();
+            foreach (var VARIABLE in context.Users)
+            {
+                
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
