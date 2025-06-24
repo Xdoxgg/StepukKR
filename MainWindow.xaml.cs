@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,27 +39,32 @@ public partial class MainWindow : Window
 
     private void LoadData()
     {
-        try
+        using (var context = new FullContext())
         {
-            var context = new FullContext();
-            var users = context.Users.ToList();
-            DataGridItems.ItemsSource = users; // Привязка данных к DataGrid
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
+            // Загрузка данных из всех классов, кроме User
+            var doctors = context.Doctors.ToList();
+            var services = context.Services.ToList();
+            var appointments = context.Appointments.Include(a => a.User).Include(a => a.Doctor).Include(a => a.Service).ToList();
+            var reviews = context.Reviews.Include(r => r.User).Include(r => r.Doctor).ToList();
+
+            // Пример: Вы можете выбрать, какие данные отображать в DataGrid
+            // Например, отображение данных о записях (Appointments)
+            DataGridItems.ItemsSource = appointments; // Привязка данных к DataGrid
+
+            // Если вы хотите отображать данные из других классов, вы можете создать отдельные DataGrids для каждого класса
+            // или комбинировать данные в один объект для отображения
         }
     }
 
 
     private void SetButtonVisibility()
     {
-        // Устанавливаем видимость кнопок в зависимости от роли пользователя
         if (currentUser.Role)
         {
             AddButton.Visibility = Visibility.Visible;
             EditButton.Visibility = Visibility.Visible;
             DeleteButton.Visibility = Visibility.Visible;
+            DataGridItems.IsReadOnly = true;
         }
     }
 
