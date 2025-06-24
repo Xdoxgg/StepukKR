@@ -1,5 +1,4 @@
-﻿using DentalClinic;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,6 +20,13 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        var us = new User
+        {
+            Role = true
+        };
+        currentUser = us; 
+        LoadData();
+        SetButtonVisibility();
     }
     public MainWindow(User us)
     {
@@ -29,14 +35,21 @@ public partial class MainWindow : Window
         LoadData();
         SetButtonVisibility();
     }
+
     private void LoadData()
     {
-        using (var context = new FullContext())
+        try
         {
+            var context = new FullContext();
             var users = context.Users.ToList();
-            dataGrid.ItemsSource = users; // Привязка данных к DataGrid
+            DataGridItems.ItemsSource = users; // Привязка данных к DataGrid
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
         }
     }
+
 
     private void SetButtonVisibility()
     {
@@ -64,7 +77,7 @@ public partial class MainWindow : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         // Логика удаления выбранной записи
-        if (dataGrid.SelectedItem is User selectedUser)
+        if (DataGridItems.SelectedItem is User selectedUser)
         {
             using (var context = new FullContext())
             {

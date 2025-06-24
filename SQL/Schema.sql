@@ -1,3 +1,7 @@
+DROP TABLE Users
+Drop table Reviews
+Drop table Appointments
+Drop table Reviews
 -- Таблица пользователей
 CREATE TABLE Users
 (

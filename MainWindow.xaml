@@ -14,7 +14,7 @@
             <!-- 20% высоты для StackPanel -->
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Grid.Row="0" />
+        <DataGrid x:Name="DataGridItems" AutoGenerateColumns="True" Grid.Row="0" />
 
         <StackPanel Width="600" Height="85" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Добавить" Click="AddButton_Click" Visibility="Collapsed" x:Name="AddButton" />

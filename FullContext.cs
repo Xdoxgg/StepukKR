@@ -1,5 +1,4 @@
-﻿using DentalClinic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DantoBrick;
 
