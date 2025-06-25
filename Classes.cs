@@ -48,9 +48,11 @@ public class Appointment
     [Column("appointment_id")]
     public int Id { get; set; }
     [Column("user_id")]
+    [ForeignKey("User")]
     public int UserId { get; set; }
     [Column("doctor_id")]
-    public int DoctorId { get; set; } 
+    [ForeignKey("Doctor")]
+    internal int DoctorId { get; set; } 
     [Column("service_id")]
     public int ServiceId { get; set; }
     [Column("appointment_date")]
@@ -60,6 +62,17 @@ public class Appointment
     public Doctor Doctor { get; set; }
     public Service Service { get; set; }
 }
+
+// public class Appointment
+// {
+//     [Key]
+//     [Column("appointment_id")]
+//     public int Id { get; set; }
+//     [ForeignKey("User")]
+//     [Column("user_id")]
+//     internal int UserId {get; set;}
+//     public User User {get; set;}
+// }
 
 public class Review
 {
@@ -77,3 +90,16 @@ public class Review
     public User User { get; set; }
     public Doctor Doctor { get; set; }
 }
+
+
+// public class AppointmentViewModel
+// {
+//     public int AppointmentId { get; set; }
+//     public string UserName { get; set; }
+//     public string DoctorName { get; set; }
+//     public string ServiceName { get; set; }
+//     public DateTime AppointmentDate { get; set; }
+//     public string Status { get; set; }
+//     public int Rating { get; set; }
+//     public string ReviewComment { get; set; }
+// }

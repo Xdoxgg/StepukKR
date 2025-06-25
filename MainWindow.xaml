@@ -13,13 +13,18 @@
             <RowDefinition Height="0.2*" />
             <!-- 20% высоты для StackPanel -->
         </Grid.RowDefinitions>
-
         <DataGrid x:Name="DataGridItems" AutoGenerateColumns="True" Grid.Row="0" />
 
         <StackPanel Width="600" Height="85" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Добавить" Width="50" Height="50" Click="AddButton_Click" Visibility="Collapsed" x:Name="AddButton" />
             <Button Content="Редактировать" Width="50" Height="50"  Margin="5" Click="EditButton_Click" Visibility="Collapsed" x:Name="EditButton" />
             <Button Content="Удалить" Margin="5" Width="50" Height="50"  Click="DeleteButton_Click" Visibility="Collapsed" x:Name="DeleteButton" />
+            <ComboBox x:Name="ComboBoxList" SelectionChanged="Selector_OnSelectionChanged" Height="40" Width="100" Grid.Row="0" >
+                <ComboBoxItem>Doctor</ComboBoxItem>
+                <ComboBoxItem>Services</ComboBoxItem>
+                <ComboBoxItem>Appointments</ComboBoxItem>
+                <ComboBoxItem>Reviews</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Window>

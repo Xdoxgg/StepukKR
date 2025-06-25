@@ -56,3 +56,6 @@ CREATE TABLE Reviews
     FOREIGN KEY (user_id) REFERENCES Users (user_id),
     FOREIGN KEY (doctor_id) REFERENCES Doctors (doctor_id)
 );
+
+
+SELECT * FROM Appointments

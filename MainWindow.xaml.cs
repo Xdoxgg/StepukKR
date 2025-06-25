@@ -41,20 +41,11 @@ public partial class MainWindow : Window
     {
         using (var context = new FullContext())
         {
-            // Загрузка данных из всех классов, кроме User
-            var doctors = context.Doctors.ToList();
-            var services = context.Services.ToList();
-            var appointments = context.Appointments.Include(a => a.User).Include(a => a.Doctor).Include(a => a.Service).ToList();
-            var reviews = context.Reviews.Include(r => r.User).Include(r => r.Doctor).ToList();
-
-            // Пример: Вы можете выбрать, какие данные отображать в DataGrid
-            // Например, отображение данных о записях (Appointments)
-            DataGridItems.ItemsSource = appointments; // Привязка данных к DataGrid
-
-            // Если вы хотите отображать данные из других классов, вы можете создать отдельные DataGrids для каждого класса
-            // или комбинировать данные в один объект для отображения
+            var bebeb = context.Doctors.ToList();
+            DataGridItems.ItemsSource = bebeb.ToList();
         }
     }
+
 
 
     private void SetButtonVisibility()
@@ -90,6 +81,51 @@ public partial class MainWindow : Window
                 context.Users.Remove(selectedUser);
                 context.SaveChanges();
                 LoadData(); // Обновляем данные в DataGrid
+            }
+        }
+    }
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var context = new FullContext();
+        
+        switch (ComboBoxList.SelectedIndex)
+        {
+            case 0:
+            {
+               
+                    var bebeb = context.Doctors.ToList();
+                    DataGridItems.ItemsSource = bebeb.ToList();
+                    break;
+
+                
+            }
+            case 1:
+            {
+               
+                    var bebeb = context.Services.ToList();
+                    DataGridItems.ItemsSource = bebeb.ToList();
+                    break;
+
+                
+            }
+            case 2:
+            {
+               
+                    var bebeb = context.Appointments.ToList();
+                    DataGridItems.ItemsSource = bebeb.ToList();
+                    break;
+
+                
+            }
+            case 3:
+            {
+                
+                    var bebeb = context.Reviews.ToList();
+                    DataGridItems.ItemsSource = bebeb.ToList();
+                    break;
+
+                
             }
         }
     }
