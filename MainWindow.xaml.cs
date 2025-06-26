@@ -61,8 +61,13 @@ public partial class MainWindow : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        // Логика добавления записи
-        // Например, открытие нового окна для ввода данных
+        DoctorAddWindow addWindow = new DoctorAddWindow();
+        this.Hide();
+        if (addWindow.ShowDialog() == true)
+        {
+            Doctor doctor = addWindow.dr;
+        }
+        this.Show();
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
