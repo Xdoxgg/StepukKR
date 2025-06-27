@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,22 +82,36 @@ public partial class MainWindow : Window
             }
             case 1:
             {
-               
-                // var bebeb = context.Services.ToList();
-                // DataGridItems.ItemsSource = bebeb.ToList();
-                break;
+
+                    AddServiceWindow addServiceWindow = new AddServiceWindow();
+                    this.Hide();
+                    if(addServiceWindow.ShowDialog() == true)
+                    {
+                        Service serv = addServiceWindow.service;
+                        MessageBox.Show("Услуга сохранена: " + serv.ServiceName);
+                        LoadData();
+                    }
+                    this.Show();
+                    break;
 
                 
             }
             case 2:
             {
-               
-                // var bebeb = context.Appointments.ToList();
-                // DataGridItems.ItemsSource = bebeb.ToList();
-                break;
 
-                
-            }
+                    AddAppointmentsWindow addAppointmentsWindow = new AddAppointmentsWindow();
+                    this.Hide();
+                    if (addAppointmentsWindow.ShowDialog() == true)
+                    {
+                        Appointment appoint = addAppointmentsWindow.appointment;
+                        MessageBox.Show("Запись добавлена: " + appoint.Doctor.LastName + " " + appoint.User.UserName + " " + appoint.Service.ServiceName);
+                        LoadData();
+                    }
+                    this.Show();
+                    break;
+
+
+                }
             case 3:
             {
                 
