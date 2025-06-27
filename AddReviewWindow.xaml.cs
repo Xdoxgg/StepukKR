@@ -15,31 +15,30 @@ using System.Windows.Shapes;
 namespace DantoBrick
 {
     /// <summary>
-    /// Логика взаимодействия для AddAppointmentsWindow.xaml
+    /// Логика взаимодействия для AddReviewWindow.xaml
     /// </summary>
-    public partial class AddAppointmentsWindow : Window
+    public partial class AddReviewWindow : Window
     {
-        public Appointment appointment;
+        public Review review;
         public bool isEdit = false;
-
-        public AddAppointmentsWindow()
+        public AddReviewWindow()
         {
             InitializeComponent();
             LoadComboBox();
         }
-
-        public AddAppointmentsWindow(Appointment app)
+        public AddReviewWindow(Review rev)
         {
             InitializeComponent();
             LoadComboBox();
-            appointment = app;
+            review = rev;
             isEdit = true;
             LoadEdit();
+
         }
 
         private void LoadEdit()
         {
-            txtStatus.Text = appointment.Status;
+            txtComment.Text = review.Comment;
         }
 
         public void LoadComboBox()
@@ -55,17 +54,13 @@ namespace DantoBrick
                 cmbDoctor.ItemsSource = context.Doctors.ToList();
                 cmbDoctor.DisplayMemberPath = "LastName"; // Можно изменить на полное имя
                 cmbDoctor.SelectedValuePath = "Id";
-
-                // Загрузка услуг
-                cmbService.ItemsSource = context.Services.ToList();
-                cmbService.DisplayMemberPath = "ServiceName";
-                cmbService.SelectedValuePath = "Id";
             }
         }
-        private void BtnSave_Click(object sender, EventArgs e)
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (cmbUser.SelectedItem == null || cmbDoctor.SelectedItem == null ||
-            cmbService.SelectedItem == null || dpAppointmentDate.SelectedDate == null)
+            cmbRating.SelectedItem == null || string.IsNullOrWhiteSpace(txtComment.Text))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -74,45 +69,50 @@ namespace DantoBrick
             if (isEdit == true)
             {
                 FullContext c = new FullContext();
-                var fff = c.Appointments.FirstOrDefault(x => x.Id == appointment.Id);
+                var fff = c.Reviews.FirstOrDefault(x => x.Id == review.Id);
                 fff.UserId = ((User)cmbUser.SelectedItem).Id;
                 fff.User = c.Users.First(el => el.Id == ((User)cmbUser.SelectedItem).Id);
-                fff.DoctorId = ((Doctor)cmbDoctor.SelectedItem).Id;
+                fff.DoctorId = ((User)cmbDoctor.SelectedItem).Id;
                 fff.Doctor = c.Doctors.First(el => el.Id == ((Doctor)cmbDoctor.SelectedItem).Id);
-                fff.ServiceId = ((Service)cmbService.SelectedItem).Id;
-                fff.Service = c.Services.First(el => el.Id == ((Service)cmbService.SelectedItem).Id);
-                fff.AppointmentDate = dpAppointmentDate.SelectedDate.Value;
-                fff.Status = txtStatus.Text;
+                fff.Rating = ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "1" ? 1 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "2" ? 2 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "3" ? 3 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "4" ? 4 : 5;
+                fff.Comment = txtComment.Text;
+                fff.CreatedAt = DateTime.Now;
                 c.SaveChanges();
                 DialogResult = true;
                 this.Close();
             }
             else
             {
+
+
                 FullContext c = new FullContext();
-                appointment = new Appointment
+                review = new Review
                 {
                     UserId = ((User)cmbUser.SelectedItem).Id,
                     User = c.Users.First(el => el.Id == ((User)cmbUser.SelectedItem).Id),
                     DoctorId = ((Doctor)cmbDoctor.SelectedItem).Id,
                     Doctor = c.Doctors.First(el => el.Id == ((Doctor)cmbDoctor.SelectedItem).Id),
-                    ServiceId = ((Service)cmbService.SelectedItem).Id,
-                    Service = c.Services.First(el => el.Id == ((Service)cmbService.SelectedItem).Id),
-                    AppointmentDate = dpAppointmentDate.SelectedDate.Value,
-                    Status = txtStatus.Text
+                    Rating = ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "1" ? 1 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "2" ? 2 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "3" ? 3 :
+                         ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString() == "4" ? 4 : 5,
+                    Comment = txtComment.Text,
+                    CreatedAt = DateTime.Now
                 };
 
-                c.Appointments.Add(appointment);
+                c.Reviews.Add(review);
                 c.SaveChanges();
                 DialogResult = true;
                 this.Close();
             }
-            
+
         }
         private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
     }
 }

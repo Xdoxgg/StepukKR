@@ -5,12 +5,18 @@
     <Compile Update="AddAppointmentsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AddReviewWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="AddServiceWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AddAppointmentsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddReviewWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AddServiceWindow.xaml">

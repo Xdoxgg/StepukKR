@@ -1,0 +1,31 @@
+﻿<Window x:Class="DantoBrick.AddReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DantoBrick"
+        mc:Ignorable="d"
+        Title="AddReviewWindow" Height="350" Width="300">
+    <Grid Margin="10">
+        <Label Content="Пользователь:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbUser" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" Width="150"/>
+
+        <Label Content="Врач:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"/>
+        <ComboBox x:Name="cmbDoctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,30,0,0" Width="150"/>
+
+        <Label Content="Рейтинг:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"/>
+        <ComboBox x:Name="cmbRating" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,60,0,0" Width="150">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+        </ComboBox>
+
+        <Label Content="Комментарий:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,90,0,0"/>
+        <TextBox x:Name="txtComment" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,90,0,0" Width="150" Height="60" AcceptsReturn="True"/>
+
+        <Button Content="Сохранить" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,160,0,0" Click="BtnSave_Click"/>
+        <Button Content="Закрыть" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,200,0,0" Click="BtnClose_Click"/>
+    </Grid>
+</Window>
