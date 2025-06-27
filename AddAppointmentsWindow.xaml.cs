@@ -54,16 +54,19 @@ namespace DantoBrick
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            FullContext c = new FullContext();
             appointment = new Appointment
             {
                 UserId = ((User)cmbUser.SelectedItem).Id,
+                User = c.Users.First(el=>el.Id==((User)cmbUser.SelectedItem).Id),
                 DoctorId = ((Doctor)cmbDoctor.SelectedItem).Id,
+                Doctor = c.Doctors.First(el=>el.Id==((Doctor)cmbDoctor.SelectedItem).Id),
                 ServiceId = ((Service)cmbService.SelectedItem).Id, 
+                Service = c.Services.First(el=>el.Id==((Service)cmbService.SelectedItem).Id),
                 AppointmentDate = dpAppointmentDate.SelectedDate.Value,
                 Status = txtStatus.Text
             };
 
-            FullContext c = new FullContext();
             c.Appointments.Add(appointment);
             c.SaveChanges();
             DialogResult = true;
