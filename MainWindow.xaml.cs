@@ -61,13 +61,58 @@ public partial class MainWindow : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        DoctorAddWindow addWindow = new DoctorAddWindow();
-        this.Hide();
-        if (addWindow.ShowDialog() == true)
+        switch (ComboBoxList.SelectedIndex)
         {
-            Doctor doctor = addWindow.dr;
+            case 0:
+            {
+               
+                DoctorAddWindow addWindow = new DoctorAddWindow();
+                this.Hide();
+                if (addWindow.ShowDialog() == true)
+                {
+                    Doctor doctor = addWindow.dr;
+                    MessageBox.Show("Доктор сохранен: " + doctor.FirstName + " " + doctor.LastName);
+                    LoadData();
+                }
+                this.Show();
+                break;
+
+                
+            }
+            case 1:
+            {
+               
+                // var bebeb = context.Services.ToList();
+                // DataGridItems.ItemsSource = bebeb.ToList();
+                break;
+
+                
+            }
+            case 2:
+            {
+               
+                // var bebeb = context.Appointments.ToList();
+                // DataGridItems.ItemsSource = bebeb.ToList();
+                break;
+
+                
+            }
+            case 3:
+            {
+                
+                // var bebeb = context.Reviews.ToList();
+                // DataGridItems.ItemsSource = bebeb.ToList();
+                break;
+
+                
+            }
+            default:
+            {
+                MessageBox.Show("Для начала нужно выбрать таблицу!");
+                break;
+            }
         }
-        this.Show();
+       
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
